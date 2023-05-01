@@ -2,4 +2,6 @@
 
 2 files `grid.h` and `grid.cpp` for drawing grids
 
-- [ ] draw a 2d grid
+- [ ] draw 2d grid with lines
+- [ ] draw 2d grid with squares
+- [ ] draw 2d radial grid
