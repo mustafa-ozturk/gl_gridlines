@@ -1,7 +1,4 @@
-# gl_grid
+# gl_gridlines
 
-2 files `grid.h` and `grid.cpp` for drawing grids
-
-- [ ] draw 2d grid with lines
-- [ ] draw 2d grid with squares
-- [ ] draw 2d radial grid
+- [x] draw 2d grid lines, no origin
+- [] draw 2d grid lines, with origin
