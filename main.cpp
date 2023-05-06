@@ -16,19 +16,29 @@ const unsigned int SCREEN_HEIGHT = 500;
 const char *vertexShaderSource = R"(
     #version 330 core
     layout (location = 0) in vec3 pos;
+    layout (location = 1) in vec4 color;
+
+    out vec4 vertexColor;
+
     uniform mat4 projection;
+
     void main()
     {
         gl_Position = projection * vec4(pos.xyz, 1.0);
+        vertexColor = color;
     }
 )";
 
 const char *fragmentShaderSource = R"(
     #version 330 core
+
+    in vec4 vertexColor;
+
     out vec4 FragColor;
+
     void main()
     {
-        FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+        FragColor = vertexColor;
     }
 )";
 
@@ -51,6 +61,9 @@ int main()
     // init glbiding
     // --------------
     glbinding::initialize(glfwGetProcAddress);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // build and compile our shader program
     // ------------------------------------
@@ -94,10 +107,11 @@ int main()
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    std::vector<unsigned int> vertices;
+    std::vector<float> vertices;
 
-    const int GRID_SIZE = 100;
+    const int GRID_SIZE = 50;
     int lines = 0;
+    float line_colors[4] = {1.0f, 0.5f, 0.2f, 0.1f};
 
     // vertical lines
     for (int i = GRID_SIZE; i < SCREEN_HEIGHT; i += GRID_SIZE)
@@ -107,10 +121,23 @@ int main()
         vertices.push_back(i); // y
         vertices.push_back(1); // z
 
+        // color
+        vertices.push_back(line_colors[0]); // r
+        vertices.push_back(line_colors[1]); // g
+        vertices.push_back(line_colors[2]); // b
+        vertices.push_back(line_colors[3]); // a
+
+
         // second point of line
         vertices.push_back(SCREEN_WIDTH); // x
         vertices.push_back(i); // y
         vertices.push_back(1); // z
+
+        // color
+        vertices.push_back(line_colors[0]); // r
+        vertices.push_back(line_colors[1]); // g
+        vertices.push_back(line_colors[2]); // b
+        vertices.push_back(line_colors[3]); // a
 
         lines++;
     }
@@ -123,16 +150,72 @@ int main()
         vertices.push_back(0); // y
         vertices.push_back(1); // z
 
+        // color
+        vertices.push_back(line_colors[0]); // r
+        vertices.push_back(line_colors[1]); // g
+        vertices.push_back(line_colors[2]); // b
+        vertices.push_back(line_colors[3]); // a
+
         // second point of line
         vertices.push_back(i); // x
         vertices.push_back(SCREEN_HEIGHT); // y
         vertices.push_back(1); // z
 
+        // color
+        vertices.push_back(line_colors[0]); // r
+        vertices.push_back(line_colors[1]); // g
+        vertices.push_back(line_colors[2]); // b
+        vertices.push_back(line_colors[3]); // a
+
         lines++;
     }
 
-    std::vector<unsigned int> indices;
+    // horizontal center line
+    vertices.push_back(SCREEN_WIDTH / 2); // x
+    vertices.push_back(0); // y
+    vertices.push_back(1); // z
 
+    // color
+    vertices.push_back(line_colors[0]); // r
+    vertices.push_back(line_colors[1]); // g
+    vertices.push_back(line_colors[2]); // b
+    vertices.push_back(line_colors[0]); // a
+
+    vertices.push_back(SCREEN_WIDTH / 2); // x
+    vertices.push_back(SCREEN_HEIGHT); // y
+    vertices.push_back(1); // z
+
+    // color
+    vertices.push_back(line_colors[0]); // r
+    vertices.push_back(line_colors[1]); // g
+    vertices.push_back(line_colors[2]); // b
+    vertices.push_back(line_colors[0]); // a
+    lines++;
+
+    // vertical center line
+    vertices.push_back(0); // x
+    vertices.push_back(SCREEN_HEIGHT / 2); // y
+    vertices.push_back(1); // z
+
+    // color
+    vertices.push_back(line_colors[0]); // r
+    vertices.push_back(line_colors[1]); // g
+    vertices.push_back(line_colors[2]); // b
+    vertices.push_back(line_colors[0]); // a
+
+    vertices.push_back(SCREEN_WIDTH); // x
+    vertices.push_back(SCREEN_HEIGHT / 2); // y
+    vertices.push_back(1); // z
+
+    // color
+    vertices.push_back(line_colors[0]); // r
+    vertices.push_back(line_colors[1]); // g
+    vertices.push_back(line_colors[2]); // b
+    vertices.push_back(line_colors[0]); // a
+    lines++;
+
+
+    std::vector<unsigned int> indices;
     for (int i = 0; i < lines * 2; i++)
     {
         indices.push_back(i);
@@ -146,13 +229,16 @@ int main()
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(unsigned int), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_UNSIGNED_INT, GL_FALSE, 3 * sizeof(unsigned int), (void*)nullptr);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)nullptr);
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
