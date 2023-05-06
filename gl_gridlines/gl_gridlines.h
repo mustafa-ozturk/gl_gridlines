@@ -22,8 +22,8 @@ private:
     std::vector<unsigned int> m_indices;
     unsigned int m_screen_width;
     unsigned int m_screen_height;
-    int m_grid_size;
-    int m_lines;
+    int m_grid_size = 50;
+    int m_lines = 0;
     float m_line_colors[4] = {1.0f, 0.5f, 0.2f, 0.1f};
 
     unsigned int create_shader_program(const std::string& vertex_source, const std::string& fragment_source);

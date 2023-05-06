@@ -90,13 +90,14 @@ unsigned int gl_gridlines::create_shader_program(const std::string& vertex_sourc
 
 void gl_gridlines::draw_gridlines()
 {
-
+    glBindVertexArray(m_vao);
+    glDrawElements(GL_LINES, m_lines * 2, GL_UNSIGNED_INT, nullptr);
 }
 
 void gl_gridlines::create_gridline_data()
 {
     // vertical lines
-    for (int i = m_grid_size; i < m_screen_height; i += m_screen_width)
+    for (int i = m_grid_size; i < m_screen_height; i += m_grid_size)
     {
         // first point of line
         m_verticies.push_back(0); // x
@@ -164,6 +165,28 @@ void gl_gridlines::create_gridline_data()
 
     m_verticies.push_back(m_screen_width / 2); // x
     m_verticies.push_back(m_screen_height); // y
+    m_verticies.push_back(1); // z
+
+    // color
+    m_verticies.push_back(m_line_colors[0]); // r
+    m_verticies.push_back(m_line_colors[1]); // g
+    m_verticies.push_back(m_line_colors[2]); // b
+    m_verticies.push_back(m_line_colors[0]); // a
+    m_lines++;
+
+    // vertical center line
+    m_verticies.push_back(0); // x
+    m_verticies.push_back(m_screen_height / 2); // y
+    m_verticies.push_back(1); // z
+
+    // color
+    m_verticies.push_back(m_line_colors[0]); // r
+    m_verticies.push_back(m_line_colors[1]); // g
+    m_verticies.push_back(m_line_colors[2]); // b
+    m_verticies.push_back(m_line_colors[0]); // a
+
+    m_verticies.push_back(m_screen_width); // x
+    m_verticies.push_back(m_screen_height / 2); // y
     m_verticies.push_back(1); // z
 
     // color

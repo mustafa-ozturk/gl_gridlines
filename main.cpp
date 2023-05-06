@@ -260,10 +260,6 @@ int main()
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // draw our first triangle
-        glBindVertexArray(VAO);
-        glDrawElements(GL_LINES, lines * 2, GL_UNSIGNED_INT, nullptr);
-
         gridlines.draw_gridlines();
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
