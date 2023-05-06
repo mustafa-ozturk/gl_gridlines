@@ -98,7 +98,7 @@ int main()
     // ------------------------------------------------------------------
     std::vector<unsigned int> vertices;
 
-    const int GRID_SIZE = 18;
+    const int GRID_SIZE = 100;
     int lines = 0;
 
     // vertical lines
