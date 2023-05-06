@@ -251,6 +251,8 @@ int main()
     glUseProgram(shaderProgram);
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
+    gl_gridlines gridlines(SCREEN_WIDTH, SCREEN_HEIGHT);
+
     // render loop
     // --------------------------
     while (!glfwWindowShouldClose(window))
@@ -261,6 +263,8 @@ int main()
         // draw our first triangle
         glBindVertexArray(VAO);
         glDrawElements(GL_LINES, lines * 2, GL_UNSIGNED_INT, nullptr);
+
+        gridlines.draw_gridlines();
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
