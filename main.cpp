@@ -13,6 +13,8 @@ using namespace gl;
 const unsigned int SCREEN_WIDTH = 500;
 const unsigned int SCREEN_HEIGHT = 500;
 
+#include "gl_gridlines.h"
+
 const char *vertexShaderSource = R"(
     #version 330 core
     layout (location = 0) in vec3 pos;
@@ -50,7 +52,8 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "gl_grid", nullptr, nullptr);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "gl_gridlines", nullptr, nullptr);
     if (!window)
     {
         glfwTerminate();
@@ -126,7 +129,6 @@ int main()
         vertices.push_back(line_colors[1]); // g
         vertices.push_back(line_colors[2]); // b
         vertices.push_back(line_colors[3]); // a
-
 
         // second point of line
         vertices.push_back(SCREEN_WIDTH); // x
