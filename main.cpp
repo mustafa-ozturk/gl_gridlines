@@ -1,7 +1,5 @@
 #include <iostream>
 
-#include "grid.h"
-
 #include <GLFW/glfw3.h>
 #include <glbinding/glbinding.h>
 #include <glbinding/gl/gl.h>
