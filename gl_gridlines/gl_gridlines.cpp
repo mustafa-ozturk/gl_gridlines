@@ -49,6 +49,13 @@ gl_gridlines::~gl_gridlines()
     glDeleteProgram(m_shader_program);
 }
 
+void gl_gridlines::draw_gridlines()
+{
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBindVertexArray(m_vao);
+    glDrawElements(GL_LINES, m_lines * 2, GL_UNSIGNED_INT, nullptr);
+}
+
 unsigned int gl_gridlines::create_shader_program(const std::string& vertex_source, const std::string& fragment_source)
 {
     // vertex shader
@@ -93,13 +100,6 @@ unsigned int gl_gridlines::create_shader_program(const std::string& vertex_sourc
     glDeleteShader(fragmentShader);
 
     return shaderProgram;
-}
-
-void gl_gridlines::draw_gridlines()
-{
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glBindVertexArray(m_vao);
-    glDrawElements(GL_LINES, m_lines * 2, GL_UNSIGNED_INT, nullptr);
 }
 
 void gl_gridlines::create_gridline_data()
