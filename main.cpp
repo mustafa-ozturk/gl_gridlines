@@ -1,15 +1,13 @@
-#include <iostream>
-
 #include <GLFW/glfw3.h>
 #include <glbinding/glbinding.h>
 #include <glbinding/gl/gl.h>
 
-using namespace gl;
+#include "gl_gridlines.h"
 
 const unsigned int SCREEN_WIDTH = 500;
 const unsigned int SCREEN_HEIGHT = 500;
 
-#include "gl_gridlines.h"
+using namespace gl;
 
 int main()
 {
