@@ -43,7 +43,10 @@ gl_gridlines::gl_gridlines(unsigned int screen_width, unsigned int screen_height
 
 gl_gridlines::~gl_gridlines()
 {
-
+    glDeleteVertexArrays(1, &m_vao);
+    glDeleteBuffers(1, &m_vbo);
+    glDeleteBuffers(1, &m_ebo);
+    glDeleteProgram(m_shader_program);
 }
 
 unsigned int gl_gridlines::create_shader_program(const std::string& vertex_source, const std::string& fragment_source)
