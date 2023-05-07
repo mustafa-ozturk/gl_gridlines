@@ -1,7 +1,9 @@
 #include "gl_gridlines.h"
 
-gl_gridlines::gl_gridlines(unsigned int screen_width, unsigned int screen_height)
-    : m_screen_width(screen_width), m_screen_height(screen_height)
+gl_gridlines::gl_gridlines(unsigned int screen_width, unsigned int screen_height, unsigned int grid_size,
+                           std::array<float, 4> line_colors)
+        : m_screen_width(screen_width), m_screen_height(screen_height),
+          m_grid_size(grid_size), m_line_colors(line_colors)
 {
     glEnable(GL_BLEND);
 
@@ -219,10 +221,10 @@ void gl_gridlines::setup_gl_objects()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned int), m_indices.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)nullptr);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*) nullptr);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*) (3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -231,7 +233,7 @@ void gl_gridlines::setup_gl_objects()
 
 void gl_gridlines::set_projection_view()
 {
-    glm::mat4 projection = glm::ortho(0.0f, (float)m_screen_width, 0.0f, (float)m_screen_height);
+    glm::mat4 projection = glm::ortho(0.0f, (float) m_screen_width, 0.0f, (float) m_screen_height);
     glUseProgram(m_shader_program);
     glUniformMatrix4fv(glGetUniformLocation(m_shader_program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 }
