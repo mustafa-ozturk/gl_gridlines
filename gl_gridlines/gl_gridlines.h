@@ -16,7 +16,7 @@ public:
 
     ~gl_gridlines();
 
-    void draw_gridlines();
+    void draw();
 
 private:
     unsigned int m_screen_width;

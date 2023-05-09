@@ -49,7 +49,7 @@ gl_gridlines::~gl_gridlines()
     glDeleteProgram(m_shader_program);
 }
 
-void gl_gridlines::draw_gridlines()
+void gl_gridlines::draw()
 {
     glUseProgram(m_shader_program);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
