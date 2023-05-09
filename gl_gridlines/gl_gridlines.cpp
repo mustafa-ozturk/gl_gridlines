@@ -51,9 +51,11 @@ gl_gridlines::~gl_gridlines()
 
 void gl_gridlines::draw_gridlines()
 {
+    glUseProgram(m_shader_program);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glBindVertexArray(m_vao);
     glDrawElements(GL_LINES, m_lines * 2, GL_UNSIGNED_INT, nullptr);
+    glBindVertexArray(0);
 }
 
 unsigned int gl_gridlines::create_shader_program(const std::string& vertex_source, const std::string& fragment_source)
