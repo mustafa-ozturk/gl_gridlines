@@ -28,7 +28,7 @@ int main()
 
     glbinding::initialize(glfwGetProcAddress);
 
-    gl_gridlines gridlines(SCREEN_WIDTH, SCREEN_HEIGHT, 50, {1.0f, 0.5f, 0.2f, 0.1f});
+    gl_gridlines gridlines(SCREEN_WIDTH, SCREEN_HEIGHT, 50, {1.0f, 0.5f, 0.2f});
 
     while (!glfwWindowShouldClose(window))
     {

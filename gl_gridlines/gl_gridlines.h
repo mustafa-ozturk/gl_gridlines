@@ -12,7 +12,7 @@ class gl_gridlines
 {
 public:
     gl_gridlines(unsigned int screen_width, unsigned int screen_height, unsigned int grid_size,
-                 std::array<float, 4> line_colors);
+                 std::array<float, 3> line_colors);
 
     ~gl_gridlines();
 
@@ -28,7 +28,7 @@ private:
     std::vector<unsigned int> m_indices;
 
     unsigned int m_grid_size;
-    std::array<float, 4> m_line_colors;
+    std::array<float, 3> m_line_colors;
     unsigned int m_lines = 0;
 
     unsigned int create_shader_program(const std::string& vertex_source, const std::string& fragment_source);
