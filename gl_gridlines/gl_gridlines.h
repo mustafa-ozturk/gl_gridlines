@@ -19,12 +19,16 @@ public:
     void draw();
 
 private:
+    struct m_vertex {
+        glm::ivec3 positions;
+//        float color_alpha;
+    };
     unsigned int m_screen_width;
     unsigned int m_screen_height;
     unsigned int m_shader_program;
 
     unsigned int m_vbo, m_vao, m_ebo;
-    std::vector<float> m_verticies;
+    std::vector<m_vertex> m_verticies;
     std::vector<unsigned int> m_indices;
 
     unsigned int m_grid_size;
