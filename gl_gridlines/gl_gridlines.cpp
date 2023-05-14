@@ -105,11 +105,11 @@ void gl_gridlines::create_gridline_data()
     for (int i = m_grid_size; i < m_screen_height; i += m_grid_size)
     {
         m_vertex first_line_point = {};
-        first_line_point.positions = { 0, i, 1 };
+        first_line_point.position = {0, i, 1 };
         m_verticies.push_back(first_line_point);
 
         m_vertex second_line_point = {};
-        second_line_point.positions = { m_screen_width, i, 1 };
+        second_line_point.position = {m_screen_width, i, 1 };
         m_verticies.push_back(second_line_point);
 
         m_lines++;
@@ -119,11 +119,11 @@ void gl_gridlines::create_gridline_data()
     for (int i = m_grid_size; i < m_screen_width; i += m_grid_size)
     {
         m_vertex first_line_point = {};
-        first_line_point.positions = { i, 0, 1 };
+        first_line_point.position = {i, 0, 1 };
         m_verticies.push_back(first_line_point);
 
         m_vertex second_line_point = {};
-        second_line_point.positions = { i, m_screen_height, 1 };
+        second_line_point.position = {i, m_screen_height, 1 };
         m_verticies.push_back(second_line_point);
 
         m_lines++;
@@ -131,21 +131,21 @@ void gl_gridlines::create_gridline_data()
 
     // horizontal center line
     m_vertex hz_first_line_point = {};
-    hz_first_line_point.positions = { m_screen_width / 2, 0, 1 };
+    hz_first_line_point.position = {m_screen_width / 2, 0, 1 };
     m_verticies.push_back(hz_first_line_point);
 
     m_vertex hz_second_line_point = {};
-    hz_second_line_point.positions = { m_screen_width / 2, m_screen_height, 1};
+    hz_second_line_point.position = {m_screen_width / 2, m_screen_height, 1};
     m_verticies.push_back(hz_second_line_point);
     m_lines++;
 
     // vertical center line
     m_vertex vrt_first_line_point = {};
-    vrt_first_line_point.positions = {0, m_screen_height / 2, 1};
+    vrt_first_line_point.position = {0, m_screen_height / 2, 1};
     m_verticies.push_back(vrt_first_line_point);
 
     m_vertex vrt_second_line_point = {};
-    vrt_second_line_point.positions = {m_screen_width, m_screen_height / 2, 1};
+    vrt_second_line_point.position = {m_screen_width, m_screen_height / 2, 1};
     m_verticies.push_back(vrt_first_line_point);
     m_lines++;
 

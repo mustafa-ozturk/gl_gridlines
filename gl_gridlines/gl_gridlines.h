@@ -20,8 +20,8 @@ public:
 
 private:
     struct m_vertex {
-        glm::ivec3 positions;
-//        float color_alpha;
+        glm::ivec3 position;
+        float color_alpha;
     };
     unsigned int m_screen_width;
     unsigned int m_screen_height;
